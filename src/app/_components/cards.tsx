@@ -36,6 +36,6 @@ export default function Cards({ cardMode } : { cardMode: string }) {
 //   const [mode, setMode] = useState(numbers)
   return (
 
-        <div onClick={() => setDisplay(nextElement((arraySelect(cardMode))))}>{display}</div>
+        <div className='text-[300px]' onClick={() => setDisplay(nextElement((arraySelect(cardMode))))}>{display}</div>
   );
 }
