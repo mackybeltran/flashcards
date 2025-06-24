@@ -16,7 +16,7 @@ export default function Home() {
  
   return (
     <div>
-      <div className='content flex justify-center items-center h-screen ' >
+      <div className='content flex justify-center h-screen ' >
         
                {(() => {
 
