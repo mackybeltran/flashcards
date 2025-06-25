@@ -18,3 +18,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.my-btn {
+  border-width: 1px;
+  border-radius: 6px;
+  width: 100px;
+  margin-inline: 20px;
+  padding-block: 5px;
+  box-shadow:  0 20px 25px -5px black;
+  background-color: white;
+}
+
+.my-btn:hover {
+  color: white;
+  background-color: skyblue;
+}
