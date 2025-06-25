@@ -15,7 +15,7 @@ export default function Home() {
   const [mode, setMode] = useState('selector')
  
   return (
-    <div>
+    <div className='relative'>
       <div className='content flex justify-center h-screen ' >
         
                {(() => {
@@ -27,11 +27,19 @@ export default function Home() {
           
           case 'cards-numbers':
 
-            return <Cards cardMode={ 'numbers' }/>
+            return <Cards cardMode={ 'numbers' } setMode={ setMode }/>
           
           case 'cards-letters':
 
-            return <Cards cardMode={ 'letters' }/>
+            return <Cards cardMode={ 'letters' } setMode={ setMode }/>
+
+          case 'cards-shapes':
+
+            return <Cards cardMode={ 'shapes' } setMode={ setMode }/> 
+            
+          case 'cards-colours':
+
+            return <Cards cardMode={ 'colours' } setMode={ setMode }/> 
       
           default:
             return <Selector setMode={ setMode }/>
@@ -39,7 +47,6 @@ export default function Home() {
       })()}
 
       </div>
-      <div className='next'></div>
     </div>
   );
 }
