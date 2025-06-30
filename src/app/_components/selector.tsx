@@ -1,7 +1,7 @@
 'use client'
 
 
-export default function Selector({ setMode, setSound, sound } : { setMode: Function, setSound: Function, sound: boolean }) {
+export default function Selector({ setMode, setSound, sound } : { setMode: (str: string) => void, setSound: (bool: boolean) => void, sound: boolean }) {
 
   return (
         <div className='flex flex-col justify-center relative'>

@@ -4,7 +4,7 @@
 
 import { useState } from "react";
 
-export default function Cards({ cardMode, setMode, sound } : { cardMode: string, setMode: Function, sound: boolean }) {
+export default function Cards({ cardMode, setMode, sound } : { cardMode: string, setMode: (str: string) => void, sound: boolean }) {
 
     const [colour, setColour] = useState('red')
     const beep = () =>  {
