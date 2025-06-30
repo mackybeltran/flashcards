@@ -5,14 +5,12 @@ import { useState } from "react";
 import Cards from './_components/cards';
 import Selector from './_components/selector';
 
-interface SelectorProps {
-  size: number
-}
 
 export default function Home() {
 
  
   const [mode, setMode] = useState('selector')
+  const [sound, setSound] = useState(true)
  
   return (
     <div className='relative'>
@@ -23,26 +21,26 @@ export default function Home() {
         switch (mode) {
           case 'selector':
 
-            return <Selector setMode={ setMode }/>
+            return <Selector setMode={ setMode } setSound={ setSound } sound = { sound }/>
           
           case 'cards-numbers':
 
-            return <Cards cardMode={ 'numbers' } setMode={ setMode }/>
+            return <Cards cardMode={ 'numbers' } setMode={ setMode } sound={ sound }/>
           
           case 'cards-letters':
 
-            return <Cards cardMode={ 'letters' } setMode={ setMode }/>
+            return <Cards cardMode={ 'letters' } setMode={ setMode } sound={ sound }/>
 
           case 'cards-shapes':
 
-            return <Cards cardMode={ 'shapes' } setMode={ setMode }/> 
+            return <Cards cardMode={ 'shapes' } setMode={ setMode } sound={ sound }/> 
             
           case 'cards-colours':
 
-            return <Cards cardMode={ 'colours' } setMode={ setMode }/> 
+            return <Cards cardMode={ 'colours' } setMode={ setMode }sound={ sound }/> 
       
           default:
-            return <Selector setMode={ setMode }/>
+            return <Selector setMode={ setMode } setSound={ setSound } sound = { sound }/>
         }
       })()}
 

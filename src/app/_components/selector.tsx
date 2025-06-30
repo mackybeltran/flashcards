@@ -3,7 +3,9 @@
 
 import { useState } from "react";
 
-export default function Selector({ setMode } : { setMode: any } ) {
+
+
+export default function Selector({ setMode, setSound, sound } : { setMode: any, setSound: any, sound: boolean }) {
 
   return (
         <div className='flex flex-col justify-center relative'>
@@ -17,8 +19,12 @@ export default function Selector({ setMode } : { setMode: any } ) {
                 <button className='my-btn' onClick={() => setMode('cards-colours')}>🔴🔵🟡</button>
             </div>
             <div className='instructions text-xs self-center absolute top-140 w-[200px]'>
-                select a flashcard type. tap anywhere on the screen to get the next card
+                select a flashcard type. tap anywhere on the screen to get the next card. tap icon below to turn sound off/on
             </div>
+            <div className='text-xs self-center absolute top-160 cursor-pointer'>
+                { sound ? (<div onClick={() => setSound(false)}>🔈</div>) : (<div onClick={() => setSound(true)}>🔇</div>) }
+            </div>
+            
             
        </div>
   );
