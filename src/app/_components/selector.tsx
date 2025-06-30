@@ -1,11 +1,7 @@
 'use client'
 
 
-import { useState } from "react";
-
-
-
-export default function Selector({ setMode, setSound, sound } : { setMode: any, setSound: any, sound: boolean }) {
+export default function Selector({ setMode, setSound, sound } : { setMode: Function, setSound: Function, sound: boolean }) {
 
   return (
         <div className='flex flex-col justify-center relative'>
