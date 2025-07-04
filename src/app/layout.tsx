@@ -13,8 +13,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://flashlearning.netlify.app/"),
+  openGraph: {
+    siteName: "App | Flashcards",
+    type: "website",
+    locale: "en_US"
+  },
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+    "max-video-preview": -1,
+    googleBot: "index, follow"
+  },
   title: "Flashcards",
-  description: "Flashcard app for young kids",
+  description: "Flashcard app for Toddlers and Pre-Schoolers",
+  applicationName: "App | Flashcards",
 };
 
 export default function RootLayout({
