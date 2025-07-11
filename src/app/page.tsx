@@ -2,8 +2,8 @@
 
 
 import { useState } from "react";
-import Cards from './_components/cards';
-import Selector from './_components/selector';
+import Cards from './_components/Cards';
+import Selector from './_components/Selector';
 
 
 export default function Home() {
@@ -13,6 +13,7 @@ export default function Home() {
   const [sound, setSound] = useState(true)
  
   return (
+    
     <div className='relative'>
       <div className='content flex justify-center h-screen ' >
         
