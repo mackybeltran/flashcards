@@ -1,5 +1,5 @@
 'use client'
-
+// deleted the build cache to fix the error
 
 import { useState } from "react";
 import Cards from './_components/Cards';
