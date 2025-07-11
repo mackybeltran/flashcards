@@ -18,7 +18,7 @@ export default function Selector({ setMode, setSound, sound } : { setMode: (str:
                 select a flashcard type. tap anywhere on the screen to get the next card. tap icon below to turn sound off/on
             </div>
             <div className='text-xs self-center absolute top-160 cursor-pointer'>
-                { sound ? (<div onClick={() => setSound(false)}>🔈</div>) : (<div onClick={() => setSound(true)}>🔇</div>) }
+                { sound ? (<div onClick={() => setSound(false)}>🔈</div>) : (<div onClick={() => setSound(true)}>🔇 </div>) }
             </div>
             
             
