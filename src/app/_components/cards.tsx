@@ -1,6 +1,6 @@
 'use client'
 
-
+// renamed this file to uppercase to fix the error
 
 import { useState } from "react";
 
