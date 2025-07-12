@@ -1,8 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-// import Shake from 'shake.js'
-const Shake = require('shake.js');
+import Shake from 'shake.js'
 
 export default function Cards({ cardMode, setMode, sound }: { cardMode: string, setMode: (str: string) => void, sound: boolean }) {
   const [colour, setColour] = useState('red')
@@ -22,6 +21,10 @@ export default function Cards({ cardMode, setMode, sound }: { cardMode: string, 
       }
     
       window.addEventListener('shake', shakeEventDidOccur, false)
+
+      return () => {
+        window.removeEventListener('shake', shakeEventDidOccur, false)
+      }
   }, [])
   
   const beep = () => {
