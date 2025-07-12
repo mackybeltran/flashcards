@@ -1,10 +1,26 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Shake from 'shake.js'
 
 export default function Cards({ cardMode, setMode, sound }: { cardMode: string, setMode: (str: string) => void, sound: boolean }) {
   const [colour, setColour] = useState('red')
+
+  useEffect(() => {
+    const myShakeEvent = new Shake({
+        threshold: 15, // optional shake strength threshold
+        timeout: 1000 // optional, determines the frequency of event generation
+      })
+    
+      myShakeEvent.start()
+    
+      const shakeEventDidOccur = () => {
+        handleClick()
+        alert('shake')
+      }
+    
+      window.addEventListener('shake', shakeEventDidOccur, false)
+  }, [])
   
   const beep = () => {
     // beep sound effect function
@@ -48,20 +64,6 @@ export default function Cards({ cardMode, setMode, sound }: { cardMode: string, 
       beep()
     }
   }
-
-  const myShakeEvent = new Shake({
-    threshold: 15, // optional shake strength threshold
-    timeout: 1000 // optional, determines the frequency of event generation
-  })
-
-  myShakeEvent.start()
-
-  const shakeEventDidOccur = () => {
-    handleClick()
-    alert('shake')
-  }
-
-  window.addEventListener('shake', shakeEventDidOccur, false)
 
   return (
     <div className='card h-screen w-screen flex flex-col justify-center items-center relative' onClick={() => handleClick()}>
