@@ -1,30 +1,68 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Shake from 'shake.js'
 
 export default function Cards({ cardMode, setMode, sound }: { cardMode: string, setMode: (str: string) => void, sound: boolean }) {
   const [colour, setColour] = useState('red')
 
-  useEffect(() => {
-    const myShakeEvent = new Shake({
-        threshold: 15, // optional shake strength threshold
-        timeout: 1000 // optional, determines the frequency of event generation
-      })
-    
-      myShakeEvent.start()
-    
-      const shakeEventDidOccur = () => {
-        // handleClick()
-        alert('shake')
-        beep()
-      }
-    
-      window.addEventListener('shake', shakeEventDidOccur, false)
+    useEffect(() => {
+    let lastUpdate = 0
+    let lastX = 0, lastY = 0, lastZ = 0
+    const SHAKE_THRESHOLD = 10
+    const SHAKE_TIMEOUT = 1000
 
-      return () => {
-        window.removeEventListener('shake', shakeEventDidOccur, false)
+    const handleMotion = (event: DeviceMotionEvent) => {
+      const current = event.accelerationIncludingGravity
+      if (!current) return
+
+      const curTime = new Date().getTime()
+      if ((curTime - lastUpdate) > 100) {
+        const diffTime = curTime - lastUpdate
+        lastUpdate = curTime
+
+        const speed = Math.abs(current.x! + current.y! + current.z! - lastX - lastY - lastZ) / diffTime * 10000
+
+        if (speed > SHAKE_THRESHOLD) {
+          console.log('Shake detected! Speed:', speed)
+          handleClick()
+        }
+
+        lastX = current.x!
+        lastY = current.y!
+        lastZ = current.z!
       }
+    }
+
+    const setupShakeDetection = async () => {
+      if (typeof DeviceMotionEvent !== 'undefined') {
+        if (typeof (DeviceMotionEvent as any).requestPermission === 'function') {
+          // iOS 13+ requires permission
+          try {
+            const permission = await (DeviceMotionEvent as any).requestPermission()
+            if (permission === 'granted') {
+              window.addEventListener('devicemotion', handleMotion, false)
+              console.log('Device motion permission granted')
+            } else {
+              console.log('Device motion permission denied')
+            }
+          } catch (error) {
+            console.error('Error requesting device motion permission:', error)
+          }
+        } else {
+          // Android and older iOS
+          window.addEventListener('devicemotion', handleMotion, false)
+          console.log('Device motion listener added (no permission required)')
+        }
+      } else {
+        console.log('Device motion not supported')
+      }
+    }
+
+    setupShakeDetection()
+
+    return () => {
+      window.removeEventListener('devicemotion', handleMotion, false)
+    }
   }, [])
   
   const beep = () => {
