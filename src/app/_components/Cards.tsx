@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Shake from 'shake.js'
+// import Shake from 'shake.js'
+const Shake = require('shake.js');
 
 export default function Cards({ cardMode, setMode, sound }: { cardMode: string, setMode: (str: string) => void, sound: boolean }) {
   const [colour, setColour] = useState('red')
