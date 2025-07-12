@@ -8,14 +8,14 @@ export default function Cards({ cardMode, setMode, sound }: { cardMode: string, 
 
   useEffect(() => {
     const myShakeEvent = new Shake({
-        threshold: 1, // optional shake strength threshold
+        threshold: 15, // optional shake strength threshold
         timeout: 1000 // optional, determines the frequency of event generation
       })
     
       myShakeEvent.start()
     
       const shakeEventDidOccur = () => {
-        handleClick()
+        // handleClick()
         alert('shake')
       }
     
