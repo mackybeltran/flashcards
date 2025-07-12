@@ -7,58 +7,63 @@ export default function Cards({ cardMode, setMode, sound }: { cardMode: string, 
 
     useEffect(() => {
     let lastUpdate = 0
-    let lastX = 0, lastY = 0, lastZ = 0
+    let lastX = 0
+    let lastY = 0
+    let lastZ = 0
     const SHAKE_THRESHOLD = 10
-    const SHAKE_TIMEOUT = 1000
+    const MOTION_INTERVAL = 100
 
     const handleMotion = (event: DeviceMotionEvent) => {
       const current = event.accelerationIncludingGravity
-      if (!current) return
+      if (!current?.x || !current?.y || !current?.z) return
 
-      const curTime = new Date().getTime()
-      if ((curTime - lastUpdate) > 100) {
+      const curTime = Date.now()
+      if (curTime - lastUpdate > MOTION_INTERVAL) {
         const diffTime = curTime - lastUpdate
         lastUpdate = curTime
 
-        const speed = Math.abs(current.x! + current.y! + current.z! - lastX - lastY - lastZ) / diffTime * 10000
+        const speed = Math.abs(
+          current.x + current.y + current.z - lastX - lastY - lastZ
+        ) / diffTime * 10000
 
         if (speed > SHAKE_THRESHOLD) {
           console.log('Shake detected! Speed:', speed)
           handleClick()
         }
 
-        lastX = current.x!
-        lastY = current.y!
-        lastZ = current.z!
+        lastX = current.x
+        lastY = current.y
+        lastZ = current.z
       }
     }
 
     const setupShakeDetection = async () => {
-      if (typeof DeviceMotionEvent !== 'undefined') {
-        if (typeof (DeviceMotionEvent as any).requestPermission === 'function') {
-          // iOS 13+ requires permission
-          try {
-            const permission = await (DeviceMotionEvent as any).requestPermission()
-            if (permission === 'granted') {
-              window.addEventListener('devicemotion', handleMotion, false)
-              console.log('Device motion permission granted')
-            } else {
-              console.log('Device motion permission denied')
-            }
-          } catch (error) {
-            console.error('Error requesting device motion permission:', error)
+      if (typeof DeviceMotionEvent === 'undefined') {
+        console.log('Device motion not supported')
+        return
+      }
+
+      // Check if permission is required (iOS 13+)
+      if (typeof (DeviceMotionEvent as any).requestPermission === 'function') {
+        try {
+          const permission = await (DeviceMotionEvent as any).requestPermission()
+          if (permission === 'granted') {
+            window.addEventListener('devicemotion', handleMotion, false)
+            console.log('Device motion permission granted')
+          } else {
+            console.log('Device motion permission denied')
           }
-        } else {
-          // Android and older iOS
-          window.addEventListener('devicemotion', handleMotion, false)
-          console.log('Device motion listener added (no permission required)')
+        } catch (error) {
+          console.error('Error requesting device motion permission:', error)
         }
       } else {
-        console.log('Device motion not supported')
+        // Android and older iOS - no permission required
+        window.addEventListener('devicemotion', handleMotion, false)
+        console.log('Device motion listener added (no permission required)')
       }
     }
 
-    setupShakeDetection()
+    void setupShakeDetection()
 
     return () => {
       window.removeEventListener('devicemotion', handleMotion, false)
