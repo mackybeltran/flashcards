@@ -44,9 +44,13 @@ export default function Cards({ cardMode, setMode, sound }: { cardMode: string, 
       }
 
       // Check if permission is required (iOS 13+)
-      if (typeof (DeviceMotionEvent as any).requestPermission === 'function') {
+      const deviceMotionEvent = DeviceMotionEvent as typeof DeviceMotionEvent & {
+        requestPermission?: () => Promise<'granted' | 'denied'>
+      }
+      
+      if (typeof deviceMotionEvent.requestPermission === 'function') {
         try {
-          const permission = await (DeviceMotionEvent as any).requestPermission()
+          const permission = await deviceMotionEvent.requestPermission()
           if (permission === 'granted') {
             window.addEventListener('devicemotion', handleMotion, false)
             console.log('Device motion permission granted')
