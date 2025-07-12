@@ -58,6 +58,7 @@ export default function Cards({ cardMode, setMode, sound }: { cardMode: string, 
 
   const shakeEventDidOccur = () => {
     handleClick()
+    alert('shake')
   }
 
   window.addEventListener('shake', shakeEventDidOccur, false)
