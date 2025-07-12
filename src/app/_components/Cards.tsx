@@ -28,7 +28,7 @@ export default function Cards({ cardMode, setMode, sound }: { cardMode: string, 
 
         if (speed > SHAKE_THRESHOLD) {
           console.log('Shake detected! Speed:', speed)
-          handleClick()
+          alert('shake')
         }
 
         lastX = current.x
