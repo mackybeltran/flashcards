@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { numbers, letters, shapes, colours } from '../_data/cardData'
 
 export default function Cards({ cardMode, setMode, sound }: { cardMode: string, setMode: (str: string) => void, sound: boolean }) {
   const [colour, setColour] = useState('red')
@@ -13,10 +14,7 @@ export default function Cards({ cardMode, setMode, sound }: { cardMode: string, 
     snd.play()
   }
 
-  const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-  const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-  const shapes = ['■', '▮', '▲', '◆', '●', '♥', '★', '⬮']
-  const colours = ['red', 'yellow', 'orange', 'green', 'blue', 'purple', 'black', 'pink']
+
   
   const arraySelect = (cardMode: string) => {
     if (cardMode === 'numbers') {
