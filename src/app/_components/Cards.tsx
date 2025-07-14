@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { numbers, letters, shapes, colours } from '../_data/cardData'
+import { numbers, lettersUppercase, lettersLowercase, lettersMixedcase, shapes, colours } from '../_data/cardData'
 
 export default function Cards({ cardMode, setMode, sound }: { cardMode: string, setMode: (str: string) => void, sound: boolean }) {
   const [colour, setColour] = useState('red')
@@ -19,8 +19,12 @@ export default function Cards({ cardMode, setMode, sound }: { cardMode: string, 
   const arraySelect = (cardMode: string) => {
     if (cardMode === 'numbers') {
       return numbers
-    } if (cardMode === 'letters') {
-      return letters
+    } if (cardMode === 'lettersUppercase') {
+      return lettersUppercase
+    } if (cardMode === 'lettersLowercase') {
+      return lettersLowercase
+    } if (cardMode === 'lettersMixedcase') {
+      return lettersMixedcase
     } if (cardMode === 'shapes') {
       return shapes
     } if (cardMode === 'colours') {
@@ -30,19 +34,19 @@ export default function Cards({ cardMode, setMode, sound }: { cardMode: string, 
     }
   }
 
-  const nextElement = (array: string[]) => {
+  const nextElement = (array: { data: string }[]) => {
     // code to select a random element in the array with no repeats
     const filteredArray = array.filter((ele) => 
-      ele !== display
+      ele.data !== display
     )
     return filteredArray[Math.floor(Math.random() * filteredArray.length)]
   }
 
-  const [display, setDisplay] = useState(arraySelect(cardMode)[1])
+  const [display, setDisplay] = useState(arraySelect(cardMode)[1].data)
 
   const handleClick = () => {
-    setDisplay(nextElement((arraySelect(cardMode))))
-    setColour(nextElement(colours))
+    setDisplay(nextElement((arraySelect(cardMode))).data)
+    setColour(nextElement(colours).data)
     if (sound) {
       beep()
     }

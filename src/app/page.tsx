@@ -31,7 +31,7 @@ export default function Home() {
           
           case 'cards-letters':
 
-            return <Cards cardMode={ 'letters' } setMode={ setMode } sound={ sound }/>
+            return <Cards cardMode={ 'lettersUppercase' } setMode={ setMode } sound={ sound }/>
 
           case 'cards-shapes':
 
