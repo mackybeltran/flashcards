@@ -82,10 +82,10 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
                   )}
                   <Image
                     src={display.image}
-                    alt='a cartoon picture'
+                    alt='cartoon picture'
                     width={350}
                     height={350}
-                    className={`${imgLoading ? 'hidden' : ''}`}
+                    className={`${imgLoading ? 'opacity-0' : ''}`}
                     onLoadingComplete={() => setImgLoading(false)}
                     onError={() => setImgLoading(false)}
                   />
