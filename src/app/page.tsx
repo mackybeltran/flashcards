@@ -12,6 +12,7 @@ export default function Home() {
  
   const [mode, setMode] = useState('selector')
   const [sound, setSound] = useState(true)
+  const [picture, setPicture] = useState(false)
  
   return (
     
@@ -23,7 +24,7 @@ export default function Home() {
         switch (mode) {
           case 'selector':
 
-            return <Selector setMode={ setMode } setSound={ setSound } sound = { sound }/>
+            return <Selector setMode={ setMode } setSound={ setSound } sound = { sound } setPicture={ setPicture } picture={ picture }/>
           
           case 'cards-numbers':
 
@@ -33,16 +34,21 @@ export default function Home() {
 
             return <Cards cardMode={ 'lettersUppercase' } setMode={ setMode } sound={ sound }/>
 
+          case 'cards-nouns':
+
+            return <Cards cardMode={ 'nouns' } setMode={ setMode } sound={ sound } picture={picture}/>
+
+
           case 'cards-shapes':
 
             return <Cards cardMode={ 'shapes' } setMode={ setMode } sound={ sound }/> 
             
           case 'cards-colours':
 
-            return <Cards cardMode={ 'colours' } setMode={ setMode }sound={ sound }/> 
+            return <Cards cardMode={ 'colours' } setMode={ setMode } sound={ sound }/> 
       
           default:
-            return <Selector setMode={ setMode } setSound={ setSound } sound = { sound }/>
+            return <Selector setMode={ setMode } setSound={ setSound } sound = { sound } setPicture={ setPicture } picture={ picture }/>
         }
       })()}
 
