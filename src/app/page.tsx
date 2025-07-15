@@ -24,7 +24,7 @@ export default function Home() {
         switch (mode) {
           case 'selector':
 
-            return <Selector setMode={ setMode } setSound={ setSound } sound = { sound } setPicture={ setPicture }/>
+            return <Selector setMode={ setMode } setSound={ setSound } sound = { sound } setPicture={ setPicture } picture={ picture }/>
           
           case 'cards-numbers':
 
@@ -36,7 +36,7 @@ export default function Home() {
 
           case 'cards-nouns':
 
-            return <Cards cardMode={ 'nouns' } setMode={ setMode } sound={ sound }/>
+            return <Cards cardMode={ 'nouns' } setMode={ setMode } sound={ sound } picture={picture}/>
 
 
           case 'cards-shapes':
@@ -48,7 +48,7 @@ export default function Home() {
             return <Cards cardMode={ 'colours' } setMode={ setMode } sound={ sound }/> 
       
           default:
-            return <Selector setMode={ setMode } setSound={ setSound } sound = { sound } setPicture={ setPicture }/>
+            return <Selector setMode={ setMode } setSound={ setSound } sound = { sound } setPicture={ setPicture } picture={ picture }/>
         }
       })()}
 

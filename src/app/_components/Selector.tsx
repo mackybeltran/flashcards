@@ -1,7 +1,13 @@
 'use client'
 // renamed this file to uppercase to fix the error
 
-export default function Selector({ setMode, setSound, sound, setPicture } : { setMode: (str: string) => void, setSound: (bool: boolean) => void, sound: boolean, setPicture: (bool: boolean) => void }) {
+export default function Selector({ setMode, setSound, sound, setPicture, picture } : { setMode: (str: string) => void, setSound: (bool: boolean) => void, sound: boolean, setPicture: (bool: boolean) => void, picture: boolean }) {
+
+
+    const handleClick = (bool: boolean) => {
+        setMode('cards-nouns')
+        setPicture(bool)
+    }
 
   return (
         <div className='flex flex-col justify-center relative'>
@@ -15,8 +21,8 @@ export default function Selector({ setMode, setSound, sound, setPicture } : { se
                 <button className='my-btn' onClick={() => setMode('cards-colours')}>🔴🔵🟡</button>
             </div>
             <div className='selections flex justify-center absolute self-center top-130'>
-                <button className='my-btn' onClick={() => { setMode('cards-nouns'); setPicture(true); }}>🍎🏀🐱</button>
-                <button className='my-btn' onClick={() => setMode('cards-nouns')}>apple,ball</button>
+                <button className='my-btn' onClick={() => handleClick(true)}>🍎🏀🐱</button>
+                <button className='my-btn' onClick={() => handleClick(false)}>apple,ball</button>
             </div>
             <div className='instructions text-xs self-center absolute top-155 w-[200px]'>
                 select a flashcard type. tap anywhere on the screen to get the next card. tap icon below to turn sound off/on

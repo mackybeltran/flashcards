@@ -1,12 +1,46 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { numbers, lettersUppercase, lettersLowercase, lettersMixedcase, shapes, colours } from '../_data/cardData'
+
+// Define a type for the card object
+interface CardData {
+  data: string;
+  image: string;
+}
 
 export default function Cards({ cardMode, setMode, sound, picture }: { cardMode: string, setMode: (str: string) => void, sound: boolean, picture?: boolean }) {
   const [colour, setColour] = useState('red')
+  const [imgLoading, setImgLoading] = useState(true);
 
-  
+  const arraySelect = (cardMode: string): CardData[] => {
+    const normalize = (arr: any[]) => arr.map((item) => ({ data: item.data ?? item, image: item.image ?? '' }))
+    if (cardMode === 'numbers') {
+      return normalize(numbers)
+    } if (cardMode === 'lettersUppercase') {
+      return normalize(lettersUppercase)
+    } if (cardMode === 'lettersLowercase') {
+      return normalize(lettersLowercase)
+    } if (cardMode === 'lettersMixedcase') {
+      return normalize(lettersMixedcase)
+    } if (cardMode === 'shapes') {
+      return normalize(shapes)
+    } if (cardMode === 'colours') {
+      return normalize(colours)
+    } if (cardMode === 'nouns') {
+      return normalize(require('../_data/cardData').nouns)
+    }
+    return normalize(numbers)
+  }
+
+  const [display, setDisplay] = useState<CardData>(arraySelect(cardMode)[1])
+
+  useEffect(() => {
+    if (cardMode === 'nouns') {
+      setImgLoading(true);
+    }
+  }, [display, cardMode]);
+
   
   const beep = () => {
     // beep sound effect function
@@ -15,26 +49,7 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
   }
 
 
-  
-  const arraySelect = (cardMode: string) => {
-    if (cardMode === 'numbers') {
-      return numbers
-    } if (cardMode === 'lettersUppercase') {
-      return lettersUppercase
-    } if (cardMode === 'lettersLowercase') {
-      return lettersLowercase
-    } if (cardMode === 'lettersMixedcase') {
-      return lettersMixedcase
-    } if (cardMode === 'shapes') {
-      return shapes
-    } if (cardMode === 'colours') {
-      return colours
-    } else {
-      return numbers
-    }
-  }
-
-  const nextElement = (array: { data: string }[]) => {
+  const nextElement = (array: CardData[]) => {
     // code to select a random element in the array with no repeats
     const filteredArray = array.filter((ele) => 
       ele.data !== display.data
@@ -42,11 +57,11 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
     return filteredArray[Math.floor(Math.random() * filteredArray.length)]
   }
 
-  const [display, setDisplay] = useState(arraySelect(cardMode)[1])
+
 
   const handleClick = () => {
-    setDisplay(nextElement((arraySelect(cardMode))))
-    setColour(nextElement(colours).data)
+    setDisplay(nextElement(arraySelect(cardMode)))
+    setColour(nextElement(arraySelect('colours')).data)
     if (sound) {
       beep()
     }
@@ -55,6 +70,27 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
   return (
     <div className='card h-screen w-screen flex flex-col justify-center items-center relative' onClick={() => handleClick()}>
       {(() => {
+        if (cardMode === 'nouns') {
+          return (
+            <div className='flex flex-col justify-center items-center'>
+              {picture && (
+                <div className='image-container h-[350px] flex items-center justify-center'>
+                  {imgLoading && (
+                    <div className="spinner border-4 border-gray-300 border-t-blue-500 rounded-full w-12 h-12 animate-spin"></div>
+                  )}
+                  <img
+                    src={display.image}
+                    alt='card'
+                    className={`h-[350px] ${imgLoading ? 'hidden' : ''}`}
+                    onLoad={() => setImgLoading(false)}
+                    onError={() => setImgLoading(false)}
+                  />
+                </div>
+              )}
+              <div className='text-[85px] self-center no-highlight'>{display.data}</div>
+            </div>
+          )
+        }
         if (cardMode === 'colours') {
           return <div style={{backgroundColor: display.data}} className='h-screen w-screen'></div>
         } else {
