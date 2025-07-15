@@ -82,7 +82,7 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
                   )}
                   <Image
                     src={display.image}
-                    alt={`a cartoon picture of a ${display.data}`}
+                    alt='a cartoon picture'
                     width={350}
                     height={350}
                     className={`${imgLoading ? 'hidden' : ''}`}
