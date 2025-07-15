@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { numbers, lettersUppercase, lettersLowercase, lettersMixedcase, shapes, colours } from '../_data/cardData'
+import { numbers, lettersUppercase, lettersLowercase, lettersMixedcase, shapes, colours, nouns } from '../_data/cardData'
+import Image from 'next/image';
 
 // Define a type for the card object
 interface CardData {
@@ -14,7 +15,8 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
   const [imgLoading, setImgLoading] = useState(true);
 
   const arraySelect = (cardMode: string): CardData[] => {
-    const normalize = (arr: any[]) => arr.map((item) => ({ data: item.data ?? item, image: item.image ?? '' }))
+    type MinimalCard = { data: string; image?: string };
+    const normalize = (arr: MinimalCard[]) => arr.map((item) => ({ data: item.data, image: item.image ?? '' }));
     if (cardMode === 'numbers') {
       return normalize(numbers)
     } if (cardMode === 'lettersUppercase') {
@@ -28,7 +30,7 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
     } if (cardMode === 'colours') {
       return normalize(colours)
     } if (cardMode === 'nouns') {
-      return normalize(require('../_data/cardData').nouns)
+      return normalize(nouns)
     }
     return normalize(numbers)
   }
@@ -78,11 +80,13 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
                   {imgLoading && (
                     <div className="spinner border-4 border-gray-300 border-t-blue-500 rounded-full w-12 h-12 animate-spin"></div>
                   )}
-                  <img
+                  <Image
                     src={display.image}
-                    alt='card'
-                    className={`h-[350px] ${imgLoading ? 'hidden' : ''}`}
-                    onLoad={() => setImgLoading(false)}
+                    alt={`a cartoon picture of a ${display.data}`}
+                    width={350}
+                    height={350}
+                    className={`${imgLoading ? 'hidden' : ''}`}
+                    onLoadingComplete={() => setImgLoading(false)}
                     onError={() => setImgLoading(false)}
                   />
                 </div>
@@ -97,7 +101,7 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
           return <div style={{color: colour}} className='text-[350px] self-center no-highlight'>{display.data}</div>
         }
       })()}
-      <button className='top-10 my-btn absolute' onClick={() => setMode('selector')}>BACK</button>
+      <button className='top-10 my-btn absolute' onClick={() => setMode('selector') } aria-label='Go back to selector'>BACK</button>
     </div>
   )
 }
