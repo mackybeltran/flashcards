@@ -76,9 +76,9 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
           return (
             <div className='flex flex-col justify-center items-center'>
               {picture && (
-                <div className='image-container h-[350px] flex items-center justify-center'>
+                <div className='image-container h-[350px] flex items-center justify-center relative'>
                   {imgLoading && (
-                    <div className="spinner border-4 border-gray-300 border-t-blue-500 rounded-full w-12 h-12 animate-spin"></div>
+                    <div className="spinner border-4 border-gray-300 border-t-blue-500 rounded-full w-[298px] h-[298px] animate-spin absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"></div>
                   )}
                   <Image
                     src={display.image}
