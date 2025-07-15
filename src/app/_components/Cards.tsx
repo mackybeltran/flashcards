@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { numbers, lettersUppercase, lettersLowercase, lettersMixedcase, shapes, colours } from '../_data/cardData'
 
-export default function Cards({ cardMode, setMode, sound }: { cardMode: string, setMode: (str: string) => void, sound: boolean }) {
+export default function Cards({ cardMode, setMode, sound, picture }: { cardMode: string, setMode: (str: string) => void, sound: boolean, picture?: boolean }) {
   const [colour, setColour] = useState('red')
 
   
@@ -37,15 +37,15 @@ export default function Cards({ cardMode, setMode, sound }: { cardMode: string, 
   const nextElement = (array: { data: string }[]) => {
     // code to select a random element in the array with no repeats
     const filteredArray = array.filter((ele) => 
-      ele.data !== display
+      ele.data !== display.data
     )
     return filteredArray[Math.floor(Math.random() * filteredArray.length)]
   }
 
-  const [display, setDisplay] = useState(arraySelect(cardMode)[1].data)
+  const [display, setDisplay] = useState(arraySelect(cardMode)[1])
 
   const handleClick = () => {
-    setDisplay(nextElement((arraySelect(cardMode))).data)
+    setDisplay(nextElement((arraySelect(cardMode))))
     setColour(nextElement(colours).data)
     if (sound) {
       beep()
@@ -54,10 +54,13 @@ export default function Cards({ cardMode, setMode, sound }: { cardMode: string, 
 
   return (
     <div className='card h-screen w-screen flex flex-col justify-center items-center relative' onClick={() => handleClick()}>
-      {cardMode === 'colours' ? 
-        (<div style={{backgroundColor: display}} className='h-screen w-screen'></div>) : 
-        (<div style={{color: colour}} className='text-[350px] self-center no-highlight'>{display}</div>)
-      }
+      {(() => {
+        if (cardMode === 'colours') {
+          return <div style={{backgroundColor: display.data}} className='h-screen w-screen'></div>
+        } else {
+          return <div style={{color: colour}} className='text-[350px] self-center no-highlight'>{display.data}</div>
+        }
+      })()}
       <button className='top-10 my-btn absolute' onClick={() => setMode('selector')}>BACK</button>
     </div>
   )
