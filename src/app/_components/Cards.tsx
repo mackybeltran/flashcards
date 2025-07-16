@@ -43,6 +43,10 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
     }
   }, [display, cardMode]);
 
+  useEffect(() => {
+    handleClick();
+  }, []);
+
   
   const beep = () => {
     // beep sound effect function
@@ -70,11 +74,11 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
   }
 
   return (
-    <div className='card h-screen w-screen flex flex-col justify-center items-center relative' onClick={() => handleClick()}>
+    <div className='card h-screen w-screen flex flex-col items-center relative' onClick={() => handleClick()}>
       {(() => {
         if (cardMode === 'nouns') {
           return (
-            <div className='flex flex-col justify-center items-center'>
+            <div className='flex flex-col justify-center items-center absolute top-40'>
               {picture && (
                 <div className='image-container h-[350px] flex items-center justify-center relative'>
                   {imgLoading && (
@@ -91,14 +95,14 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
                   />
                 </div>
               )}
-              <div className='text-[85px] self-center no-highlight'>{display.data}</div>
+              <div className={!picture ? 'relative top-40 text-[85px] self-center no-highlight' : 'text-[85px] self-center no-highlight'}>{display.data}</div>
             </div>
           )
         }
         if (cardMode === 'colours') {
           return <div style={{backgroundColor: display.data}} className='h-screen w-screen'></div>
         } else {
-          return <div style={{color: colour}} className='text-[350px] self-center no-highlight'>{display.data}</div>
+          return <div style={{color: colour}} className='text-[350px] no-highlight absolute top-20'>{display.data}</div>
         }
       })()}
       <button className='top-10 my-btn absolute' onClick={() => setMode('selector') } aria-label='Go back to selector'>BACK</button>
