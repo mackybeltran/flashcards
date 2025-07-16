@@ -13,22 +13,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Flashcards',
-  description: 'Flashcard app for Toddlers and Pre-Schoolers',
+  title: 'Studycard',
+  description: 'Studycard is a fun, interactive flashcard app for toddlers and preschoolers to learn letters, numbers, shapes, colors, and vocabulary.',
   applicationName: 'App | Flashcards',
   alternates: {
     canonical: "https://flashlearning.netlify.app"
   },
   openGraph: {
-    title: 'Flashcards',
-    description: 'Flashcard app for Toddlers and Pre-Schoolers',
+    title: 'Studycard',
+    description: 'Studycard app for Toddlers and Pre-Schoolers',
+    type: 'website',
+    siteName: 'Studycard',
     images: [
       {
         url: 'https://res.cloudinary.com/dw1mtnug2/image/upload/v1752262512/export_hh2reu.png',
         width: 1200,
-        height: 60,
-        alt: 'Flashcards',
+        height: 630,
+        alt: 'Studycard',
       },
+      // Add more images if available
     ],
   },
   robots: {
@@ -41,38 +44,25 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Flashcards',
-    description: 'Flashcard app for Toddlers and Pre-Schoolers',
-    images: ['https://res.cloudinary.com/dw1mtnug2/image/upload/v1752262512/export_hh2reu.png'],
+    title: 'Studycard',
+    description: 'Studycard app for Toddlers and Pre-Schoolers',
+    images: ['https://res.cloudinary.com/dw1mtnug2/image/upload/v1752262512/export_hh2reu.png']
   },
   other: {
+    keywords: 'studycard, flashcards, kids, children, learning, preschool, toddler, alphabet, numbers, shapes, colors, educational, phonics, vocabulary, reading, fun, interactive, study, school, early learning',
     'application/ld+json': JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Flashcards",
-      "description": "Interactive flashcard app for Toddlers and Pre-Schoolers to learn numbers, letters, shapes, and colors",
-      "url": "https://flashlearning.netlify.app",
-      "applicationCategory": "EducationalApplication",
-      "operatingSystem": "Web Browser",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Children"
+      "@type": "EducationalApplication",
+      "name": "Studycard",
+      "applicationCategory": "Educational",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0"
       },
-      "educationalUse": ["Learning", "Memory Training"],
-      "learningResourceType": ["Flashcards", "Interactive Media"],
-      "teaches": ["Numbers", "Letters", "Shapes", "Colors", "Early Learning"],
-      "author": {
-        "@type": "Organization",
-        "name": "Flashcards App"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Flashcards App"
-      },
-      "datePublished": "2024",
-      "inLanguage": "en",
-      "screenshot": "https://res.cloudinary.com/dw1mtnug2/image/upload/v1752262512/export_hh2reu.png"
-    })
+      "description": "A fun, interactive flashcard app for toddlers and preschoolers."
+    }),
+    author: 'Macky Beltran',
   }
 };
 
@@ -87,6 +77,22 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <script type="application/ld+json">
+{`
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalApplication",
+  "name": "Studycard",
+  "applicationCategory": "Educational",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0"
+  },
+  "description": "A fun, interactive flashcard app for toddlers and preschoolers."
+}
+`}
+</script>
       </body>
     </html>
   );
