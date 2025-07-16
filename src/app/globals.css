@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -13,7 +13,7 @@ body {
 }
 
 h1 {
-  font-family: 'Fredoka One', cursive;
+  font-family: 'Fredoka';
   font-weight: 900;
 }
 
