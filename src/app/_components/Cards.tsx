@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { numbers, lettersUppercase, lettersLowercase, lettersMixedcase, shapes, colours, nouns } from '../_data/cardData'
 import Image from 'next/image';
+import debounce from 'lodash.debounce';
 
 // Define a type for the card object
 interface CardData {
@@ -73,8 +74,21 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
     }
   }
 
+  // Debounced version of handleClick
+  const debouncedHandleClick = useCallback(
+    debounce(handleClick, 200),
+    [cardMode, sound, display, colour, picture]
+  );
+
+  // Clean up debounced function on unmount
+  useEffect(() => {
+    return () => {
+      debouncedHandleClick.cancel();
+    };
+  }, [debouncedHandleClick]);
+
   return (
-    <div className='card h-screen w-screen flex flex-col items-center relative' onClick={() => handleClick()}>
+    <div className='card h-screen w-screen flex flex-col items-center relative' onClick={debouncedHandleClick}>
       {(() => {
         if (cardMode === 'nouns') {
           return (
