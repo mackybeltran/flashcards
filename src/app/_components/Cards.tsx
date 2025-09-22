@@ -116,7 +116,7 @@ export default function Cards({ cardMode, setMode, sound, picture }: { cardMode:
         if (cardMode === 'colours') {
           return <div style={{backgroundColor: display.data}} className='h-screen w-screen'></div>
         } else {
-          return <div style={{color: colour}} className='text-[350px] no-highlight absolute top-20'>{display.data}</div>
+          return <div style={{color: colour}} className='text-[350px] no-highlight absolute top-32'>{display.data}</div>
         }
       })()}
       <button className='top-10 my-btn absolute' onClick={() => setMode('selector') } aria-label='Go back to selector'>BACK</button>
